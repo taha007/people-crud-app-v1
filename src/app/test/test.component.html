@@ -3,7 +3,7 @@
   <p>hello {{ name }}</p>
   <img [src]="url" alt="My IMAGE" width="100px" />
   <button (click)="hello(name)">What's your name!!</button>
-  <hr />
+  <hr>
   <ul *ngFor="let bookname of booksList">
     <li>
       {{ bookname }}
@@ -12,6 +12,12 @@
   <div *ngIf="booksList.length==0" class="alert alert-warning">
     No books found!!
   </div>
+  <hr>
+  <ul *ngFor="let user of usersList">
+    <li>
+      {{ user.name }}
+    </li>
+  </ul>
 </div>
 
 <app-footer></app-footer>

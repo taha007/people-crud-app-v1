@@ -12,6 +12,7 @@ import { FooterComponent } from './footer/footer.component';
 import { TestComponent } from './test/test.component';
 import { Page404Component } from './page404/page404.component';
 
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,13 +23,10 @@ import { Page404Component } from './page404/page404.component';
     NavbarComponent,
     FooterComponent,
     TestComponent,
-    Page404Component
+    Page404Component,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

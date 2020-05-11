@@ -2,24 +2,24 @@
 <div class="container my-5">
   <h2 class="my-3">People List</h2>
   <button class="btn btn-primary my-2 my-sm-0" >Add</button>
-  <div *ngIf="elements.length==0" class="alert alert-warning my-3">
+  <div *ngIf="usersList.length==0" class="alert alert-warning my-3">
     No people found
   </div>
   <table class="table my-3">
     <thead>
       <tr>
-        <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+        <th *ngFor="let head of headUsersList" scope="col">{{head}} </th>
       </tr>
     </thead>
     <tbody>
-      <tr mdbTableCol *ngFor="let el of elements">
-        <th scope="row">{{el.id}}</th>
-        <td>{{el.firstname}}</td>
-        <td>{{el.lastname}}</td>
-        <td>{{el.phone}}</td>
+      <tr mdbTableCol *ngFor="let user of usersList; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{user.firstname}}</td>
+        <td>{{user.lastname}}</td>
+        <td>{{user.phone}}</td>
         <td>
           <button type="button" class="btn btn-info mx-3 my-2 my-sm-0" >Details</button>
-          <button type="button" class="btn btn-danger mx-3 my-2 my-sm-0" (click)="deleteRow(el.id)">Delete</button>
+          <button type="button" class="btn btn-danger mx-3 my-2 my-sm-0" (click)="deleteRow(user.id)">Delete</button>
           <button type="button" class="btn btn-warning mx-3 my-2 my-sm-0">Update</button>
        </td>
       </tr>

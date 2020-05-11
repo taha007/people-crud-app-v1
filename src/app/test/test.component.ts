@@ -1,3 +1,4 @@
+import { UserService } from './../user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,11 +11,21 @@ export class TestComponent implements OnInit {
   url = '/assets/images/myimages.jpeg';
 
   booksList = [];
+  usersList = [];
   myCondition = false;
 
-  constructor() {}
+  constructor(private userService: UserService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userService.getAllUsers().subscribe(
+      (result) => {
+        this.usersList = result;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
   hello(myname: string) {
     alert('this is myname :' + myname);

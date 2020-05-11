@@ -1,3 +1,4 @@
+import { UserService } from './../user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,21 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./people-list.component.css'],
 })
 export class PeopleListComponent implements OnInit {
-  elements: any = [
-    { id: 1, firstname: 'Mark', lastname: 'Otto', phone: '@mdo' },
-    { id: 2, firstname: 'Jacob', lastname: 'Thornton', phone: '@fat' },
-    { id: 3, firstname: 'Larry', lastname: 'the Bird', phone: '@twitter' },
-  ];
+  usersList: any = [];
 
-  headElements = ['#', 'Firstname', 'Lastname', 'Phone', '#'];
-  constructor() {}
+  headUsersList = ['#', 'Firstname', 'Lastname', 'Phone', '#'];
+  constructor(private userService: UserService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userService.getAllUsers().subscribe(
+      (results) => {
+        this.usersList = results;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
   deleteRow(id) {
-    for (let i = 0; i < this.elements.length; ++i) {
-      if (this.elements[i].id === id) {
-        this.elements.splice(i, 1);
+    for (let i = 0; i < this.usersList.length; ++i) {
+      if (this.usersList[i].id === id) {
+        this.usersList.splice(i, 1);
       }
     }
   }
