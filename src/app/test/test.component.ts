@@ -1,33 +1,38 @@
-import { UserService } from './../user.service';
 import { Component, OnInit } from '@angular/core';
-
+import {
+  FormGroup,
+  FormControl,
+  FormBuilder,
+  Validator,
+  Validators,
+} from '@angular/forms';
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.css'],
 })
 export class TestComponent implements OnInit {
-  name = 'taha';
-  url = '/assets/images/myimages.jpeg';
+  myForm: FormGroup;
 
-  booksList = [];
-  usersList = [];
-  myCondition = false;
+  constructor(private fb: FormBuilder) {
+    let formControls = {
+      firstname: new FormControl('', [
+        Validators.required,
+        Validators.pattern("[a-z .'-]+"),
+        Validators.minLength(2),
+      ]),
+    };
 
-  constructor(private userService: UserService) {}
-
-  ngOnInit(): void {
-    this.userService.getAllUsers().subscribe(
-      (result) => {
-        this.usersList = result;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.myForm = this.fb.group(formControls);
   }
 
-  hello(myname: string) {
-    alert('this is myname :' + myname);
+  get firstname() {
+    return this.myForm.get('firstname');
+  }
+
+  ngOnInit(): void {}
+
+  saveUser() {
+    console.log(this.myForm.value);
   }
 }

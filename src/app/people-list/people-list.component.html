@@ -5,7 +5,7 @@
   <div *ngIf="usersList.length==0" class="alert alert-warning my-3">
     No people found
   </div>
-  <table class="table my-3">
+  <table *ngIf="usersList.length>0" class="table my-3">
     <thead>
       <tr>
         <th *ngFor="let head of headUsersList" scope="col">{{head}} </th>
@@ -19,7 +19,7 @@
         <td>{{user.phone}}</td>
         <td>
           <button type="button" class="btn btn-info mx-3 my-2 my-sm-0" >Details</button>
-          <button type="button" class="btn btn-danger mx-3 my-2 my-sm-0" (click)="deleteRow(user.id)">Delete</button>
+          <button type="button" class="btn btn-danger mx-3 my-2 my-sm-0" (click)="deleteRow(user)">Delete</button>
           <button type="button" class="btn btn-warning mx-3 my-2 my-sm-0">Update</button>
        </td>
       </tr>

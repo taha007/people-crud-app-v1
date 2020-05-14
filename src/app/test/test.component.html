@@ -1,23 +1,27 @@
-<app-navbar></app-navbar>
 <div class="container">
-  <p>hello {{ name }}</p>
-  <img [src]="url" alt="My IMAGE" width="100px" />
-  <button (click)="hello(name)">What's your name!!</button>
-  <hr>
-  <ul *ngFor="let bookname of booksList">
-    <li>
-      {{ bookname }}
-    </li>
-  </ul>
-  <div *ngIf="booksList.length==0" class="alert alert-warning">
-    No books found!!
-  </div>
-  <hr>
-  <ul *ngFor="let user of usersList">
-    <li>
-      {{ user.name }}
-    </li>
-  </ul>
-</div>
+  <form [formGroup]="myForm" (ngSubmit)="saveUser()">
+    <div class="form-row">
+      <div class="form-group col">
+        <label for="firstname"> Firstname :</label>
+        <input
+          class="form-control"
+          type="text"
+          name="firstname"
+          id="firstname"
+          formControlName="firstname"
+        />
+        <div *ngIf="firstname.touched && firstname.invalid">
+          <small *ngIf="firstname.errors.required" class="text-danger"> Firstname is required <br></small>
+          <small *ngIf="firstname.errors.pattern" class="text-danger"> Invalid firstname <br></small>
+          <small *ngIf="firstname.errors.minlength" class="text-danger"> Firstname must contain at least two characters </small>
+        </div>
+      </div>
+    </div>
 
-<app-footer></app-footer>
+    <div class="form-row">
+      <div class="form-group col">
+        <input type="submit" value="send" [disabled] = "myForm.invalid" class="btn btn-primary" />
+      </div>
+    </div>
+  </form>
+</div>

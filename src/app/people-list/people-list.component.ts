@@ -23,11 +23,17 @@ export class PeopleListComponent implements OnInit {
     );
   }
 
-  deleteRow(id) {
-    for (let i = 0; i < this.usersList.length; ++i) {
-      if (this.usersList[i].id === id) {
-        this.usersList.splice(i, 1);
+  deleteRow(user) {
+    let index = this.usersList.indexOf(user);
+    this.usersList.splice(index, 1);
+
+    this.userService.deleteUser(user._id).subscribe(
+      (result) => {
+        console.log(result);
+      },
+      (error) => {
+        console.log(error);
       }
-    }
+    );
   }
 }
