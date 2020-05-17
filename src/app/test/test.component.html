@@ -2,18 +2,34 @@
   <form [formGroup]="myForm" (ngSubmit)="saveUser()">
     <div class="form-row">
       <div class="form-group col">
-        <label for="firstname"> Firstname :</label>
+        <label for="firstnamecnt"> Firstname :</label>
         <input
           class="form-control"
           type="text"
-          name="firstname"
-          id="firstname"
-          formControlName="firstname"
+          name="firstnamecnt"
+          id="firstnamecnt"
+          formControlName="firstnamecnt"
         />
-        <div *ngIf="firstname.touched && firstname.invalid">
-          <small *ngIf="firstname.errors.required" class="text-danger"> Firstname is required <br></small>
-          <small *ngIf="firstname.errors.pattern" class="text-danger"> Invalid firstname <br></small>
-          <small *ngIf="firstname.errors.minlength" class="text-danger"> Firstname must contain at least two characters </small>
+        <div *ngIf="getfirstname.touched && getfirstname.invalid">
+          <small *ngIf="getfirstname.errors.required" class="text-danger"> Firstname is required <br></small>
+          <small *ngIf="getfirstname.errors.pattern" class="text-danger"> Invalid firstname <br></small>
+          <small *ngIf="getfirstname.errors.minlength" class="text-danger"> Firstname must contain at least two characters </small>
+        </div>
+      </div>
+
+      <div class="form-group col">
+        <label for="phonecnt"> Phone :</label>
+        <input
+          class="form-control"
+          type="text"
+          name="phonecnt"
+          id="phonecnt"
+          formControlName="phonecnt"
+        />
+        <div *ngIf="getphone.touched && getphone.invalid">
+          <small *ngIf="getphone.errors.maxlength" class="text-danger"> Phone must contain at max ten characters <br></small>
+         <!--<small *ngIf="getphone.errors.pattern" class="text-danger"> Invalid Phone <br></small>-->
+          <small *ngIf="getphone.errors.minlength" class="text-danger"> Phone must contain at least two characters </small>
         </div>
       </div>
     </div>

@@ -13,6 +13,13 @@ import { TestComponent } from './test/test.component';
 import { Page404Component } from './page404/page404.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UpdateUserComponent } from './update-user/update-user.component';
+import { AddUserComponent } from './add-user/add-user.component';
+import {
+  ToastrModule,
+  ToastNoAnimation,
+  ToastNoAnimationModule,
+} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -25,6 +32,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     TestComponent,
     Page404Component,
+    UpdateUserComponent,
+    AddUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +41,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    ToastNoAnimationModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

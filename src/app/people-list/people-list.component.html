@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container my-5">
   <h2 class="my-3">People List</h2>
-  <button class="btn btn-primary my-2 my-sm-0" >Add</button>
+  <button class="btn btn-primary my-2 my-sm-0" [routerLink]="['/add-user']" >Add</button>
   <div *ngIf="usersList.length==0" class="alert alert-warning my-3">
     No people found
   </div>
@@ -20,7 +20,7 @@
         <td>
           <button type="button" class="btn btn-info mx-3 my-2 my-sm-0" >Details</button>
           <button type="button" class="btn btn-danger mx-3 my-2 my-sm-0" (click)="deleteRow(user)">Delete</button>
-          <button type="button" class="btn btn-warning mx-3 my-2 my-sm-0">Update</button>
+          <button type="button" class="btn btn-warning mx-3 my-2 my-sm-0" [routerLink]="['/update-user',user._id]">Update</button>
        </td>
       </tr>
     </tbody>

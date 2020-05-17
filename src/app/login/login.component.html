@@ -1,15 +1,36 @@
 <app-navbar></app-navbar>
 <div class="container my-5">
-    <form>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  <form [formGroup]="myForm" (ngSubmit)="login()">
+      <div class="form-group">
+        <label for="emailcnt"> Email address :</label>
+        <input
+          class="form-control"
+          type="email"
+          name="emailcnt"
+          id="emailcnt"
+          formControlName="emailcnt"
+          aria-describedby="emailHelp"
+        />
+        <div *ngIf="getemail.touched && getemail.invalid">
+          <small *ngIf="getemail.errors.required" class="text-danger"> Email is required <br></small>
+          <small *ngIf="getemail.errors.email" class="text-danger"> Invalid Email <br></small>
         </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+      </div>
+      <div class="form-group">
+        <label for="passwordcnt"> Password :</label>
+        <input
+          class="form-control"
+          type="password"
+          name="passwordcnt"
+          id="passwordcnt"
+          formControlName="passwordcnt"
+        />
+        <div *ngIf="getpwd.touched && getpwd.invalid">
+          <small *ngIf="getpwd.errors.required" class="text-danger"> Password is required <br></small>
+          <small *ngIf="getpwd.errors.minlength" class="text-danger"> Password must contain at least 6 characters !! <br></small>
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-    </form>
+      </div>
+      <input type="submit" value="Login" [disabled] = "myForm.invalid" class="btn btn-info" />
+  </form>
 </div>
 <app-footer></app-footer>
