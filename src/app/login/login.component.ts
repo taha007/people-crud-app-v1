@@ -7,6 +7,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { User } from '../user';
+import { UserService } from '../user.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,7 +18,12 @@ import { User } from '../user';
 })
 export class LoginComponent implements OnInit {
   myForm: FormGroup;
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService,
+    private toastr: ToastrService
+  ) {
     let formControls = {
       emailcnt: new FormControl('', [Validators.required, Validators.email]),
       passwordcnt: new FormControl('', [
@@ -34,11 +43,27 @@ export class LoginComponent implements OnInit {
     return this.myForm.get('passwordcnt');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let isLoggedIn = this.userService.isLoggedIn();
+    if (isLoggedIn) {
+      this.router.navigate(['/people-list']);
+    }
+  }
 
   login() {
     let data = this.myForm.value;
     let user = new User(null, null, data.emailcnt, null, data.passwordcnt);
-    console.log(user);
+    this.userService.loginAdmin(user).subscribe(
+      (result) => {
+        console.log(result);
+        let token = result.token;
+        localStorage.setItem('myToken', token);
+        this.toastr.success(result.message);
+        this.router.navigate(['/people-list']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }

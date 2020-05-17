@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { User } from './../user';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -7,6 +8,8 @@ import {
   Validator,
   Validators,
 } from '@angular/forms';
+import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,11 +18,16 @@ import {
 })
 export class RegisterComponent implements OnInit {
   myForm: FormGroup;
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {
     let formControls = {
       firstname: new FormControl('', [
         Validators.required,
-        Validators.pattern("[a-z .'-]+"),
+        Validators.pattern("[a-z A-Z .'-]+"),
         Validators.minLength(2),
       ]),
       lastname: new FormControl('', [
@@ -67,17 +75,30 @@ export class RegisterComponent implements OnInit {
     return this.myForm.get('repeatPassword');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    let isLoggedIn = this.userService.isLoggedIn();
+    if (isLoggedIn) {
+      this.router.navigate(['/people-list']);
+    }
+  }
 
   register() {
     let data = this.myForm.value;
     let user = new User(
-      data.lastname,
       data.firstname,
+      data.lastname,
       data.email,
       data.phone,
       data.password
     );
-    console.log(user);
+    this.userService.registerAdmin(user).subscribe(
+      (result) => {
+        this.toastr.success(result.message);
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }
