@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
   {
     path: 'people-list',
     component: PeopleListComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'test',
@@ -33,10 +35,12 @@ const routes: Routes = [
   {
     path: 'add-user',
     component: AddUserComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'update-user/:id',
     component: UpdateUserComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: '**',

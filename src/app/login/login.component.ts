@@ -58,10 +58,12 @@ export class LoginComponent implements OnInit {
         console.log(result);
         let token = result.token;
         localStorage.setItem('myToken', token);
+        console.log(result);
         this.toastr.success(result.message);
         this.router.navigate(['/people-list']);
       },
       (error) => {
+        this.toastr.error(error.error.message);
         console.log(error);
       }
     );
